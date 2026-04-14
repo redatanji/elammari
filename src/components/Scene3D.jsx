@@ -8,6 +8,11 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
+const GLB_VILLA      = 'https://github.com/redatanji/elammari/releases/download/js/villa.glb'
+const GLB_APARTMENT  = 'https://github.com/redatanji/elammari/releases/download/js/modern_apartment.glb'
+const GLB_AUDITORIUM = 'https://github.com/redatanji/elammari/releases/download/js/super_minimal_round_auditorium.glb'
+const GLB_STUDIO     = 'https://github.com/redatanji/elammari/releases/download/js/studio_office_interior.glb'
+
 /* ─── Camera Rig HOME ────────────────────────────────────── */
 function CameraRigHome() {
   const { camera } = useThree()
@@ -18,10 +23,6 @@ function CameraRigHome() {
     camera.position.set(c.px, c.py, c.pz)
     camera.lookAt(c.tx, c.ty, c.tz)
 
-    // Use document.body as the trigger instead of '.scroll-container'.
-    // '.scroll-container' is inside the lazy-loaded Home page and may not
-    // exist in the DOM when this effect runs (Canvas mounts before the page).
-    // document.body has the same scroll range and is always present.
     const tl = gsap.timeline({
       scrollTrigger: {
         trigger: document.body,
@@ -163,7 +164,7 @@ function CameraRigContact() {
 
 /* ─── Modelli ────────────────────────────────────────────── */
 function VillaModel() {
-  const { scene } = useGLTF('/villa.glb')
+  const { scene } = useGLTF(GLB_VILLA)
   useEffect(() => {
     scene.traverse((child) => {
       if (child.isMesh) {
@@ -181,7 +182,7 @@ function VillaModel() {
 }
 
 function ApartmentModel() {
-  const { scene } = useGLTF('/modern_apartment.glb')
+  const { scene } = useGLTF(GLB_APARTMENT)
   useEffect(() => {
     scene.traverse((child) => {
       if (child.isMesh) {
@@ -199,7 +200,7 @@ function ApartmentModel() {
 }
 
 function CastleModel() {
-  const { scene } = useGLTF('/super_minimal_round_auditorium.glb')
+  const { scene } = useGLTF(GLB_AUDITORIUM)
   useEffect(() => {
     scene.traverse((child) => {
       if (child.isMesh) {
@@ -217,7 +218,7 @@ function CastleModel() {
 }
 
 function StudioModel() {
-  const { scene } = useGLTF('/studio_office_interior.glb')
+  const { scene } = useGLTF(GLB_STUDIO)
   useEffect(() => {
     scene.traverse((child) => {
       if (child.isMesh) {
@@ -284,13 +285,11 @@ function SceneContent({ pathname }) {
 
   return (
     <>
-      {/* Camera rig corretto per ogni pagina */}
       {isHome       && <CameraRigHome />}
       {isProperties && <CameraRigProperties />}
       {isAbout      && <CameraRigAbout />}
       {isContact    && <CameraRigContact />}
 
-      {/* Luci */}
       <ambientLight intensity={0.18} color="#F5EDD6" />
       <spotLight
         position={[0, 10, 0]}
@@ -305,7 +304,6 @@ function SceneContent({ pathname }) {
       <pointLight position={[-3, 0.5,  1]}  intensity={0.6} color="#E8D5A3" distance={8}  />
       <directionalLight position={[8, 6, 8]} intensity={0.35} color="#B0C4DE" />
 
-      {/* Modello corretto per ogni pagina */}
       <Suspense fallback={<FallbackBox />}>
         <Environment preset="night" background={false} />
         {isHome       && <VillaModel />}
@@ -348,13 +346,13 @@ export default function Scene3D() {
 }
 
 // Preload landing model immediately; defer remaining models until after initial render
-useGLTF.preload('/villa.glb')
+useGLTF.preload(GLB_VILLA)
 
 if (typeof window !== 'undefined') {
   const prefetch = () => {
-    useGLTF.preload('/modern_apartment.glb')
-    useGLTF.preload('/super_minimal_round_auditorium.glb')
-    useGLTF.preload('/studio_office_interior.glb')
+    useGLTF.preload(GLB_APARTMENT)
+    useGLTF.preload(GLB_AUDITORIUM)
+    useGLTF.preload(GLB_STUDIO)
   }
   if (document.readyState === 'complete') {
     prefetch()
