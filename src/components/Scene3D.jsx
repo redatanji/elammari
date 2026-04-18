@@ -8,10 +8,10 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const GLB_VILLA      = 'https://github.com/redatanji/elammari/releases/download/js/villa.glb'
-const GLB_APARTMENT  = 'https://github.com/redatanji/elammari/releases/download/js/modern_apartment.glb'
-const GLB_AUDITORIUM = 'https://github.com/redatanji/elammari/releases/download/js/super_minimal_round_auditorium.glb'
-const GLB_STUDIO     = 'https://github.com/redatanji/elammari/releases/download/js/studio_office_interior.glb'
+const GLB_VILLA      = '/villa.glb'
+const GLB_APARTMENT  = '/modern_apartment.glb'
+const GLB_AUDITORIUM = '/super_minimal_round_auditorium.glb'
+const GLB_STUDIO     = '/studio_office_interior.glb'
 
 /* ─── Camera Rig HOME ────────────────────────────────────── */
 function CameraRigHome() {
