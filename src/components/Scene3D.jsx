@@ -8,7 +8,7 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const GLB_VILLA      = '/villa.glb'
+const GLB_VILLA      = 'public/villa.glb'
 const GLB_APARTMENT  = '/modern_apartment.glb'
 const GLB_AUDITORIUM = '/super_minimal_round_auditorium.glb'
 const GLB_STUDIO     = '/studio_office_interior.glb'
